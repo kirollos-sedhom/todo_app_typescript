@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import "./App.css";
 import InputField from "./components/InputField";
 import { Todo } from "./model";
+import TodoList from "./components/TodoList";
 function App() {
   const [todoItem, setTodoItem] = React.useState<string>("");
   const [todoList, setTodoList] = React.useState<Todo[]>([]);
@@ -34,16 +35,7 @@ function App() {
         handleAdd={handleAdd}
         inputRef={inputRef}
       />
-      <div className="w-9/10 m-auto bg-blue-400 rounded-sm p-2 my-2">
-        <h2 className="text-white text-xl">Active Tasks</h2>
-        <ul>
-          {todoList.map((item) => (
-            <li className="bg-linear-to-r from-yellow-100 to-white  my-2 p-2 rounded-md">
-              {item.task}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
     </div>
   );
 }
