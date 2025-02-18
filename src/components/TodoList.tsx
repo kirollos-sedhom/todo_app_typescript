@@ -12,7 +12,12 @@ const TodoList = ({ todoList, setTodoList }: Props) => {
       <h2 className="text-white text-xl">Active Tasks</h2>
 
       {todoList.map((item) => (
-        <TodoItem todo={item} key={item.id} />
+        <TodoItem
+          todo={item}
+          todoList={todoList}
+          setTodoList={setTodoList}
+          key={item.id}
+        />
       ))}
     </div>
   );
