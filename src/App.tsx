@@ -3,6 +3,7 @@ import "./App.css";
 import InputField from "./components/InputField";
 import { Todo } from "./model";
 import TodoList from "./components/TodoList";
+
 function App() {
   const [todoItem, setTodoItem] = React.useState<string>("");
   const [todoList, setTodoList] = React.useState<Todo[]>([]);
