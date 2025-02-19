@@ -5,45 +5,27 @@ import { Todo } from "../model";
 type Props = {
   todo: Todo;
   todoList: Todo[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
+
+  dispatch: React.Dispatch<{
+    type: string;
+    payload: Todo;
+  }>;
 };
 
-const TodoItem = ({ todo, todoList, setTodoList }: Props) => {
-  const [state, dispatch] = useReducer(reducer, todoList);
+const TodoItem = ({ todo, todoList, dispatch }: Props) => {
   const [editMode, setEditMode] = React.useState(false);
   const [editedContent, setEditedContent] = React.useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  function reducer(action: string) {
-    switch (action) {
-      case "delete_todo":
-        let newTodoList = todoList.filter((item) => item.id !== todo.id);
-        return newTodoList;
-      // setTodoList(newTodoList);
-      default:
-        return;
-    }
-  }
+
   React.useEffect(() => {
-    console.log("current input:", inputRef.current);
     inputRef.current?.focus();
   }, [editMode]);
 
   function handleCompleteTask(id: string) {
-    let newTodoList = todoList.map((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          isDone: !item.isDone,
-        };
-      } else {
-        return item;
-      }
-    });
-    setTodoList(newTodoList);
+    dispatch({ type: "complete_todo", payload: todo });
   }
   function handleDeleteTask(id: string) {
-    let newTodoList = todoList.filter((item) => item.id !== id);
-    setTodoList(newTodoList);
+    dispatch({ type: "delete_todo", payload: todo });
   }
   function handleEditTask() {
     setEditMode((mode) => !mode);
@@ -56,16 +38,8 @@ const TodoItem = ({ todo, todoList, setTodoList }: Props) => {
 
   function handleFinishedEditing(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const newTodoList = todoList.map((item) => {
-      if (item.id === todo.id) {
-        return {
-          ...item,
-          task: editedContent,
-        };
-      }
-      return item;
-    });
-    setTodoList(newTodoList);
+    dispatch({ type: "edit_todo", payload: { ...todo, task: editedContent } });
+
     setEditMode((mode) => !mode);
   }
   return (

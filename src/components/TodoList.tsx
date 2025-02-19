@@ -4,9 +4,13 @@ import TodoItem from "./TodoItem";
 
 type Props = {
   todoList: Todo[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
+  dispatch: React.Dispatch<{
+    type: string;
+    payload: Todo;
+  }>;
 };
-const TodoList = ({ todoList, setTodoList }: Props) => {
+
+const TodoList = ({ todoList, dispatch }: Props) => {
   return (
     <div className="w-9/10 m-auto bg-blue-400 rounded-sm p-2 my-2">
       <h2 className="text-white text-xl">Active Tasks</h2>
@@ -15,7 +19,7 @@ const TodoList = ({ todoList, setTodoList }: Props) => {
         <TodoItem
           todo={item}
           todoList={todoList}
-          setTodoList={setTodoList}
+          dispatch={dispatch}
           key={item.id}
         />
       ))}

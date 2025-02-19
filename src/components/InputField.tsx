@@ -5,7 +5,7 @@ type Props = {
   todoItem: string;
   setTodoItem: React.Dispatch<React.SetStateAction<string>>;
   todoList: Todo[];
-  setTodoList: React.Dispatch<React.SetStateAction<Todo[]>>;
+
   handleAdd: (e: React.FormEvent) => void;
   inputRef: React.MutableRefObject<HTMLInputElement | null>;
 };
@@ -13,7 +13,7 @@ const InputField = ({
   todoItem,
   setTodoItem,
   todoList,
-  setTodoList,
+
   handleAdd,
   inputRef,
 }: Props) => {
