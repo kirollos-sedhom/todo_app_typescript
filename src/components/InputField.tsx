@@ -20,7 +20,7 @@ const InputField = ({
   return (
     <form
       onSubmit={(e) => handleAdd(e)}
-      className="w-9/10 mx-auto relative flex justify-center items-center"
+      className="w-9/10 mx-auto relative flex justify-center items-center md:w-1/2"
     >
       <input
         ref={inputRef}
